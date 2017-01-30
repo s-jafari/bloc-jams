@@ -28,6 +28,21 @@ var albumMarconi = {
   ]
 };
 
+var albumBeatles = {
+  title: 'Abbey Road',
+  artist: 'The Beatles',
+  label: 'EMI',
+  year: '1969',
+  albumArtUrl: 'assets/images/album_covers/15.png',
+  songs: [
+    { title: 'Come Together', duration: '4:20' },
+    { title: 'Something', duration: '3:03' },
+    { title: 'Oh! Darling', duration: '3:26'},
+    { title: 'Here Comes the Sun', duration: '3:05' },
+    { title: 'Because', duration: '2:45'}
+  ]
+};
+
 var createSongRow = function(songNumber, songName, songLength) {
   var template = 
     '<tr class="album-view-song-item">'
@@ -40,12 +55,13 @@ var createSongRow = function(songNumber, songName, songLength) {
   return template;
 };
 
+var albumTitle = document.getElementsByClassName('album-view-title')[0];
+var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+var albumImage = document.getElementsByClassName('album-cover-art')[0];
+var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
+
 var setCurrentAlbum = function(album) {
-  var albumTitle = document.getElementsByClassName('album-view-title')[0];
-  var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-  var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-  var albumImage = document.getElementsByClassName('album-cover-art')[0];
-  var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
   albumTitle.firstChild.nodeValue = album.title;
   albumArtist.firstChild.nodeValue = album.artist;
@@ -62,3 +78,18 @@ var setCurrentAlbum = function(album) {
 window.onload = function() {
   setCurrentAlbum(albumPicasso);
 };
+
+var albums = [albumPicasso, albumMarconi, albumBeatles];
+var counter = 1;
+
+var albumSwitcher = function(array) {
+  setCurrentAlbum(array[counter]);
+  counter ++;
+  if(counter == 3) {
+    counter = 0;
+  }
+};
+
+albumImage.addEventListener("click", function(){
+  albumSwitcher(albums);
+})
